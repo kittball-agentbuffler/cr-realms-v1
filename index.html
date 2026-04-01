@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic Realms Vol. 1 — Tube & Berger / Kittball Records</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black: #050507;
+            --charcoal: #0e0e12;
+            --card: #0f0f15;
+            --steel: #7a7a8a;
+            --steel-light: #a0a0b0;
+            --stone: #555566;
+            --ice: #8ab4cc;
+            --ice-dim: #5a8aa0;
+            --ice-glow: rgba(138, 180, 204, 0.15);
+            --frost: #c0c8d0;
+            --border: #1a1a22;
+            --border-hover: #2a2a38;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Philosopher', Georgia, serif;
+            background: var(--black);
+            color: var(--steel-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === FALLING ASH === */
+        .ash-container {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ash {
+            position: absolute;
+            background: rgba(160, 160, 180, 0.2);
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10px) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(100vh) translateX(60px) rotate(360deg); opacity: 0; }
+        }
+
+        /* === DARK VIGNETTE === */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* === CONTAINER === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === HEADER === */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--steel);
+        }
+
+        .nav-links a {
+            color: var(--stone);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-left: 24px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--ice); }
+
+        /* === HERO — COMPACT === */
+        .hero {
+            padding: 40px 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-cover {
+            width: 320px;
+            min-width: 320px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            box-shadow:
+                0 0 80px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(138, 180, 204, 0.04);
+            transition: box-shadow 0.4s;
+        }
+
+        .hero-cover:hover {
+            box-shadow:
+                0 0 100px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(138, 180, 204, 0.06);
+        }
+
+        /* === VIDEO === */
+        .video-section {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px 8px;
+        }
+
+        .video-wrap {
+            position: relative;
+            width: 70%;
+            max-width: 500px;
+            aspect-ratio: 16 / 9;
+            margin: 0 auto;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+            background: #000;
+        }
+
+        .video-wrap iframe {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .unmute-btn {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border-hover);
+            color: var(--frost);
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .unmute-btn:hover {
+            background: rgba(138, 180, 204, 0.1);
+            border-color: var(--ice-dim);
+        }
+
+        .unmute-btn.hidden { display: none; }
+
+        .hero-text { flex: 1; }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--frost);
+            text-shadow: 0 0 40px rgba(138, 180, 204, 0.08);
+            line-height: 1.15;
+        }
+
+        .hero .vol {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--ice-dim);
+            margin-top: 6px;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--steel);
+            margin-top: 16px;
+        }
+
+        .hero .byline {
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-top: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 36px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--frost);
+        }
+
+        .stat-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-top: 2px;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feat {
+            font-family: 'Cinzel', serif;
+            font-size: 0.58rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--ice-dim);
+            padding: 5px 14px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            background: rgba(138, 180, 204, 0.03);
+        }
+
+        /* === DIVIDER === */
+        .divider {
+            width: 200px;
+            height: 1px;
+            margin: 32px auto;
+            background: linear-gradient(90deg, transparent, var(--stone), transparent);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === SECTION TITLE === */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--frost);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--stone);
+            font-style: italic;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === PACK GRID === */
+        .packs-section {
+            position: relative;
+            z-index: 10;
+            padding: 0 20px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .packs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .pack-card {
+            background: var(--card);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .pack-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow:
+                0 0 50px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(138, 180, 204, 0.03);
+        }
+
+        .pack-cover-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pack-cover-wrap img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+            filter: brightness(0.9);
+        }
+
+        .pack-card:hover .pack-cover-wrap img {
+            transform: scale(1.04);
+            filter: brightness(1);
+        }
+
+        .pack-cover-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, var(--card));
+            pointer-events: none;
+        }
+
+        .pack-info { padding: 14px 18px 20px; }
+
+        .pack-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--frost);
+        }
+
+        .pack-desc {
+            font-size: 0.85rem;
+            color: var(--stone);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .pack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: rgba(138, 180, 204, 0.04);
+            border: 1px solid rgba(138, 180, 204, 0.08);
+            color: var(--ice-dim);
+            font-size: 0.55rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1.5px;
+            padding: 2px 8px;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .pack-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pack-contents {
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            color: var(--stone);
+            letter-spacing: 1px;
+        }
+
+        .pack-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ice);
+        }
+
+        /* === WHAT'S INSIDE === */
+        .contents-section {
+            position: relative;
+            z-index: 10;
+            padding: 0 24px 10px;
+        }
+
+        .contents {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-item { text-align: center; max-width: 150px; }
+
+        .content-item .icon { font-size: 1.3rem; margin-bottom: 4px; filter: grayscale(0.5); }
+
+        .content-item h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ice-dim);
+            margin-bottom: 2px;
+        }
+
+        .content-item p {
+            font-size: 0.78rem;
+            color: var(--stone);
+        }
+
+        /* === BUNDLE CTA === */
+        .cta-section {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 32px 20px 60px;
+        }
+
+        .cta-box {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 44px 40px;
+            background: linear-gradient(135deg, rgba(138, 180, 204, 0.02), rgba(0, 0, 0, 0.3));
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-box h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--frost);
+        }
+
+        .cta-box .cta-sub {
+            font-style: italic;
+            color: var(--stone);
+            margin-top: 6px;
+            font-size: 0.9rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .price-original {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.15);
+            text-decoration: line-through;
+        }
+
+        .price-bundle {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--frost);
+            text-shadow: 0 0 30px rgba(138, 180, 204, 0.1);
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: rgba(138, 180, 204, 0.1);
+            border: 1px solid rgba(138, 180, 204, 0.15);
+            color: var(--ice);
+            font-family: 'Cinzel', serif;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            padding: 4px 16px;
+            border-radius: 2px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .cta-details {
+            color: var(--stone);
+            font-size: 0.9rem;
+            margin-top: 14px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 14px 48px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--frost);
+            background: linear-gradient(135deg, #1a1a28, #0e0e18);
+            border: 1px solid var(--border-hover);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            border-color: var(--ice-dim);
+            box-shadow:
+                0 0 50px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(138, 180, 204, 0.06);
+        }
+
+        /* === FOOTER === */
+        footer {
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            color: var(--stone);
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .footer-sub {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.1);
+            margin-top: 4px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 960px) {
+            .packs-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+            .hero-cover { width: 260px; min-width: auto; }
+            .stats { justify-content: center; }
+            .hero-features { justify-content: center; }
+            .packs-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .nav-links { display: none; }
+            .cta-box { padding: 30px 22px; }
+            .contents { gap: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 30px 0 20px; }
+            .hero-cover { width: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ASH PARTICLES -->
+<div class="ash-container" id="ash"></div>
+<script>
+(function() {
+    const c = document.getElementById('ash');
+    for (let i = 0; i < 35; i++) {
+        const a = document.createElement('div');
+        a.className = 'ash';
+        a.style.left = Math.random() * 100 + '%';
+        a.style.animationDuration = (8 + Math.random() * 12) + 's';
+        a.style.animationDelay = Math.random() * 12 + 's';
+        a.style.width = a.style.height = (1.5 + Math.random() * 2) + 'px';
+        c.appendChild(a);
+    }
+})();
+</script>
+
+<!-- HEADER -->
+<header>
+    <div class="container nav-inner">
+        <div class="logo">Kittball Records</div>
+        <nav class="nav-links">
+            <a href="#compositions">Compositions</a>
+            <a href="#bundle">Bundle</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO — COMPACT SIDE-BY-SIDE -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <img src="images/main_cover.png" alt="Cinematic Realms Vol. 1" class="hero-cover">
+            <div class="hero-text">
+                <h1>Cinematic<br>Realms</h1>
+                <div class="vol">Volume 1</div>
+                <p class="tagline">"Worlds become real and the Journey becomes epic."</p>
+                <div class="byline">by Tube & Berger</div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Compositions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2 GB+</div>
+                        <div class="stat-label">WAV Content</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Royalty Free</div>
+                    </div>
+                </div>
+                <div class="hero-features">
+                    <span class="hero-feat">Full Songs</span>
+                    <span class="hero-feat">Group Stems</span>
+                    <span class="hero-feat">One Shots</span>
+                    <span class="hero-feat">Bonus SFX</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TRAILER VIDEO -->
+<section class="video-section">
+    <div class="video-wrap" id="videoWrap">
+        <div id="ytplayer"></div>
+        <button class="unmute-btn" id="unmuteBtn" onclick="unmuteVideo()">&#128266; Enable Sound</button>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPOSITIONS -->
+<section id="compositions" class="packs-section">
+    <h2 class="section-title">The Six Realms</h2>
+    <div class="section-subtitle">Each realm tells a story</div>
+
+    <div class="packs-grid">
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_journey.png" alt="The Journey" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Journey</h3>
+                <p class="pack-desc">The road ahead is long and uncertain. Sweeping strings, gentle woodwinds and evolving pads carry the listener through vast, undiscovered landscapes.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_siege.png" alt="The Siege" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Siege</h3>
+                <p class="pack-desc">Walls crumble, arrows fly, steel meets steel. Thundering percussion, brass fanfares and relentless rhythmic tension drive an epic battle to its breaking point.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_hunt.png" alt="The Hunt" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Hunt</h3>
+                <p class="pack-desc">Predator becomes prey in the overgrown deep. Organic textures, mechanical rhythms and primal percussion merge into an urgent, adrenaline-fueled pursuit.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_fallen.png" alt="The Fallen" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Fallen</h3>
+                <p class="pack-desc">Giants once walked this earth. Colossal orchestral swells, deep sub-bass impacts and mournful choir passages paint a world of mythic loss and faded glory.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_fear.png" alt="The Fear" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Fear</h3>
+                <p class="pack-desc">Something lurks in the darkness below. Creeping strings, distorted whispers and suffocating silence create a soundscape of pure psychological terror.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pack-card">
+            <div class="pack-cover-wrap">
+                <img src="images/the_curse.png" alt="The Curse" loading="lazy">
+            </div>
+            <div class="pack-info">
+                <h3 class="pack-name">The Curse</h3>
+                <p class="pack-desc">A dark enchantment spreads across the land. Haunting orchestral layers, eerie textures and ominous low-end rumbles build an atmosphere of ancient, inescapable dread.</p>
+                <div class="pack-tags">
+                    <span class="tag">Full Song</span>
+                    <span class="tag">Stems</span>
+                    <span class="tag">One Shots</span>
+                </div>
+                <div class="pack-meta">
+                    <span class="pack-contents">Stems + Elements</span>
+                    <span class="pack-price">&euro;13</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT'S INSIDE -->
+<section class="contents-section">
+    <div class="section-title">What Lies Within</div>
+    <div class="section-subtitle">Every composition, fully deconstructed</div>
+    <div class="contents">
+        <div class="content-item">
+            <div class="icon">&#127932;</div>
+            <h4>Full Songs</h4>
+            <p>6 complete compositions</p>
+        </div>
+        <div class="content-item">
+            <div class="icon">&#9878;</div>
+            <h4>Group Stems</h4>
+            <p>Separated instrument groups</p>
+        </div>
+        <div class="content-item">
+            <div class="icon">&#9889;</div>
+            <h4>One Shots</h4>
+            <p>Hits, impacts & elements</p>
+        </div>
+        <div class="content-item">
+            <div class="icon">&#10024;</div>
+            <h4>Bonus SFX</h4>
+            <p>Cinematic sound effects</p>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BUNDLE CTA -->
+<section id="bundle" class="cta-section">
+    <div class="cta-box">
+        <h2>The Complete Collection</h2>
+        <p class="cta-sub">All six realms. One legendary bundle.</p>
+        <div class="price-row">
+            <span class="price-original">&euro;78</span>
+            <span class="price-bundle">&euro;49</span>
+        </div>
+        <div class="savings-badge">Save 37%</div>
+        <p class="cta-details">6 compositions &middot; Full songs, stems, one shots &amp; bonus SFX &middot; 2 GB+ WAV</p>
+        <a href="#" class="cta-button">Get The Bundle</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-brand">Tube &amp; Berger &middot; Kittball Records</div>
+        <div class="footer-sub">&copy; 2026 &middot; All rights reserved</div>
+    </div>
+</footer>
+
+<!-- YouTube IFrame API -->
+<script>
+var player;
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytplayer', {
+        videoId: 'D1pD7Bz4U4E',
+        playerVars: {
+            autoplay: 1,
+            mute: 1,
+            loop: 1,
+            playlist: 'D1pD7Bz4U4E',
+            controls: 0,
+            showinfo: 0,
+            rel: 0,
+            modestbranding: 1,
+            playsinline: 1
+        },
+        events: {
+            onReady: function(e) { e.target.playVideo(); }
+        }
+    });
+}
+
+function unmuteVideo() {
+    if (player && player.unMute) {
+        player.unMute();
+        player.setVolume(100);
+        document.getElementById('unmuteBtn').classList.add('hidden');
+    }
+}
+</script>
+
+</body>
+</html>
