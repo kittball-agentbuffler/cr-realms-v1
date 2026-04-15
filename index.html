@@ -185,7 +185,7 @@ footer .brand{color:var(--gold);font-weight:600;font-size:13px}
 <div class="samples-section">
 <section id="samples">
   <span class="section-label">Listen</span>
-  <h2>Sample Library<br>20 Playable One Shots</h2>
+  <h2>Sample Library<br>10 Playable Loops</h2>
   <div class="samples-grid" id="samples-grid"></div>
 </section>
 </div>
@@ -239,26 +239,16 @@ footer .brand{color:var(--gold);font-weight:600;font-size:13px}
 </div>
 <script>
 const S=[
-  {n:"Heavy Axe Clashes",c:"BATTLE",f:"previews/BATTLE/Heavy_axe_clashes_an_1.mp3"},
-  {n:"Heavy Steel Swords",c:"BATTLE",f:"previews/BATTLE/Heavy_steel_swords_c_1.mp3"},
-  {n:"Brutal Battle Vol. 1",c:"BATTLE",f:"previews/BATTLE/Brutal_medieval_batt_2.mp3"},
-  {n:"Heavy Boots Vol. 1",c:"BATTLE",f:"previews/BATTLE/Heavy_boots_thudding_1.mp3"},
-  {n:"Guttural Grunts",c:"BATTLE",f:"previews/BATTLE/Guttural_grunts_of_e_4.mp3"},
-  {n:"Brutal Battle Vol. 2",c:"BATTLE",f:"previews/BATTLE/Brutal_medieval_batt_4.mp3"},
-  {n:"Heavy Boots Vol. 2",c:"BATTLE",f:"previews/BATTLE/Heavy_boots_thudding_3.mp3"},
-  {n:"Animals & Birds",c:"FOREST",f:"previews/FOREST/ANMLMisc_Birds_Elevenlabs.mp3"},
-  {n:"Dense Pine Forest",c:"FOREST",f:"previews/FOREST/Dense_pine_forest_am_2.mp3"},
-  {n:"Echoing Calls",c:"FOREST",f:"previews/FOREST/Distant_echoing_cal_2.mp3"},
-  {n:"Distant Thuds Vol. 1",c:"FOREST",f:"previews/FOREST/Distant_slow_thuds_1.mp3"},
-  {n:"Deep Resonance",c:"FOREST",f:"previews/FOREST/Distant_deep_resona_1.mp3"},
-  {n:"Dry Raspy Creature",c:"FOREST",f:"previews/FOREST/Distant_dry_raspy_2.mp3"},
-  {n:"Distant Thuds Vol. 2",c:"FOREST",f:"previews/FOREST/Distant_slow_thuds_3.mp3"},
-  {n:"Deep Strained Grunt 1",c:"THE PAIN",f:"previews/THE_PAIN/A_deep_strained_gru_1.mp3"},
-  {n:"Angry Witch Vol. 1",c:"THE PAIN",f:"previews/THE_PAIN/Angry_witch_grunts_w_2.mp3"},
-  {n:"Choked Fear",c:"THE PAIN",f:"previews/THE_PAIN/Choked_grunt_of_fear_1.mp3"},
-  {n:"Strained Grunt",c:"THE PAIN",f:"previews/THE_PAIN/A_strained_grunt_of_1.mp3"},
-  {n:"Angry Witch Vol. 2",c:"THE PAIN",f:"previews/THE_PAIN/Angry_witch_grunts_w_3.mp3"},
-  {n:"Deep Strained Grunt 2",c:"THE PAIN",f:"previews/THE_PAIN/A_deep_strained_gru_4.mp3"}
+  {n:"Axe Clashes Loop",c:"BATTLE",f:"previews/BATTLE/loop_battle_axe.mp3"},
+  {n:"Steel Swords Loop",c:"BATTLE",f:"previews/BATTLE/loop_battle_swords.mp3"},
+  {n:"Boots March Loop",c:"BATTLE",f:"previews/BATTLE/loop_battle_boots.mp3"},
+  {n:"Medieval Battle Loop",c:"BATTLE",f:"previews/BATTLE/loop_battle_brutal.mp3"},
+  {n:"Pine Forest Loop",c:"FOREST",f:"previews/FOREST/loop_forest_pine.mp3"},
+  {n:"Echoing Calls Loop",c:"FOREST",f:"previews/FOREST/loop_forest_echo.mp3"},
+  {n:"Birds & Animals Loop",c:"FOREST",f:"previews/FOREST/loop_forest_birds.mp3"},
+  {n:"Deep Grunt Loop",c:"THE PAIN",f:"previews/THE_PAIN/loop_pain_grunt.mp3"},
+  {n:"Witch Screams Loop",c:"THE PAIN",f:"previews/THE_PAIN/loop_pain_witch.mp3"},
+  {n:"Strained Creature Loop",c:"THE PAIN",f:"previews/THE_PAIN/loop_pain_strained.mp3"}
 ];
 let ca=null,ci=-1;
 function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
